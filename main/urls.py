@@ -19,12 +19,17 @@ from django.contrib import admin
 from django.urls import path
 
 # импортирую представления
-from advertisements.views import index
+from advertisements.views import index, home, top_sellers, test1, test2
 from app_lesson_4.views import lesson
 
 # urlpatterns - хранит ссылки
+# name - нужен для короткого обращения к ссылки
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('',home, name='home'),
     path('home/',index), # создаю ссылку с помощью path
+    path('top-sellers/',top_sellers, name='top_sellers'),
     path('lesson_4/',lesson),
+    path('test1/',test1, name='test1'),
+    path('test2/',test2, name='test2'),
 ]
