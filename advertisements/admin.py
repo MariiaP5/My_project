@@ -3,12 +3,13 @@ from .models import Advertisement
 # импортирую класс для подсказок
 from django.db.models.query import QuerySet
 
+from decimal import Decimal
 
 # admin_class - класс для кастомизации
 class AdvertisementAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'description', 'price', 'auction', 'updated_date', 'created_date'] # отображение в виде таблице
     list_filter = ['auction','created_at'] # параметры фильтрации
-    actions = ['make_action_as_false','make_action_as_true'] # добавляю функцию для выбранных записей
+    actions = ['make_action_as_false','make_action_as_true','sale_30'] # добавляю функцию для выбранных записей
     
     # создание блоков
     fieldsets = (
@@ -35,6 +36,12 @@ class AdvertisementAdmin(admin.ModelAdmin):
     @admin.action(description='Добавить возможность торга')
     def make_action_as_true(self, request, queryset:QuerySet):
         queryset.update(auction = True) # обновить значение auction у выбранных записей на True
+
+    @admin.action(description='Сделать скидку 30 процентов')
+    def sale_30(self, request, queryset:QuerySet):
+        for i in queryset:
+            i.price = i.price * Decimal(0.7)
+            i.save()
 
 
 # подключаю модель
