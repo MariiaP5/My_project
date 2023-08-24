@@ -9,6 +9,18 @@ class Advertisement(models.Model): # наследую класс Model для с
     auction=models.BooleanField('Торг', help_text='Отметьте, возможен ли торг')
     created_at=models.DateTimeField(auto_now_add=True) # сохраняем дату создания
     updated_at=models.DateTimeField(auto_now=True) # дата будет обновляться каждый раз при изменении объявления
+    
+
+    def __str__(self) -> str:
+        return f"Advertisement(id={self.id}, title={self.title}, price={self.price})"
+
+
+    # область для работы с таблицами
+    class Meta:
+        db_table='advertisements'
+
+
+
 
 # from advertisements.models import Advertisement
 # adv1=Advertisement(title='Машина', description='Машина новая, большая, красная', price='20000000', auction=True) # создала запись
