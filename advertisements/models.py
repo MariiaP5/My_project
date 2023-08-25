@@ -3,7 +3,11 @@ from django.contrib import admin
 from django.utils import timezone # для времени
 from django.utils.html import format_html # для создания строки html 
 
+from django.contrib.auth import get_user_model # метод для получения класса модели пользователей
+
 # название, цена, описание, дата создания/обновления, торг
+
+User=get_user_model()
 
 class Advertisement(models.Model): # наследую класс Model для создания таблицы в БД
     title=models.CharField(verbose_name='Название',max_length=100) # текстовое поле
@@ -12,7 +16,8 @@ class Advertisement(models.Model): # наследую класс Model для с
     auction=models.BooleanField('Торг', help_text='Отметьте, возможен ли торг')
     created_at=models.DateTimeField(auto_now_add=True) # сохраняем дату создания
     updated_at=models.DateTimeField(auto_now=True) # дата будет обновляться каждый раз при изменении объявления
-    
+    user = models.ForeignKey(User, on_delete=models.CASCADE) # если User буджет удален то все обьявления связанные с ним тоже будут удалены
+    image = models.ImageField('Изображения', upload_to='advertisements/')
 
     def __str__(self) -> str:
         return f"Advertisement(id={self.id}, title={self.title}, price={self.price})"
@@ -40,6 +45,14 @@ class Advertisement(models.Model): # наследую класс Model для с
             )
         return self.updated_at.strftime('%d.%m.%Y at %H:%M:%S')
     
+    @admin.display(description='фото')
+    def photo(self):
+        if self.image:#проверяю что есть картинка
+           
+            return format_html(
+                "<img src = '{}' width='100px' heigth = '100px' ",self.image.url)
+        return format_html(
+                "<img src = 'http://127.0.0.1:8000/media/advertisements/no_image.jpg' width='100px' heigth = '100px' ",)
 
 # from advertisements.models import Advertisement
 # adv1=Advertisement(title='Машина', description='Машина новая, большая, красная', price='20000000', auction=True) # создала запись

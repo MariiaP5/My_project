@@ -17,7 +17,8 @@ Including another URLconf
 # файл отвечает за ссылки
 from django.contrib import admin
 from django.urls import path
-
+from django.conf import settings # подключил файл setting
+from django.conf.urls.static import static # функция для создания ссылок для картинок
 # импортирую представления
 from advertisements.views import index, home, top_sellers, test1, test2
 from app_lesson_4.views import lesson
@@ -33,3 +34,7 @@ urlpatterns = [
     path('test1/',test1, name='test1'),
     path('test2/',test2, name='test2'),
 ]
+
+
+if settings.DEBUG : # если файт в разработке
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT ) # указал ссылку и путь к файлу медиа

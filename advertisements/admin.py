@@ -7,16 +7,17 @@ from decimal import Decimal
 
 # admin_class - класс для кастомизации
 class AdvertisementAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'description', 'price', 'auction', 'updated_date', 'created_date'] # отображение в виде таблице
+    list_display = ['id', 'user', 'title', 'description', 'price', 'auction', 'updated_date', 'created_date', 'photo'] # отображение в виде таблице
     list_filter = ['auction','created_at'] # параметры фильтрации
     actions = ['make_action_as_false','make_action_as_true','sale_30'] # добавляю функцию для выбранных записей
-    
+    date_hierarchy='created_at'
+
     # создание блоков
     fieldsets = (
         ( # блок 1
             'Общее', # название блока 
             { 
-                "fields": ('title','description') # поля блока
+                "fields": ('title','description', 'user', 'image') # поля блока
             }
         ),
         ( # блок 2

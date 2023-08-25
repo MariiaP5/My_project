@@ -124,6 +124,11 @@ STATIC_URL = 'static/'
 # подключили static
 STATICFILES_DIRS = [BASE_DIR/'static']
 
+# константы для медиа
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT  = BASE_DIR/'media'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
