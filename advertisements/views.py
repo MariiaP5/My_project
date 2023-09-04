@@ -1,7 +1,7 @@
 from django.shortcuts import render
 # получает запросы и отдает ответы
 from django.http import HttpResponse # класс для ответа в формате html
-
+from .forms import AdvertisementForm
 from .models import Advertisement
 
 # функция или классы, которые будут принимать запрос и отдавать ответ
@@ -19,6 +19,11 @@ def home(request):
     data = Advertisement.objects.all() # беру все записи из БД
     context = {'advertisements' : data} # словарь
     return render(request, 'index.html', context)
+
+def post_adv(request):
+    form=AdvertisementForm() # создаю пустую форму
+    context = {'form' : form}
+    return render(request, 'advertisement-post.html', context)
 
 def top_sellers(request):
     return render(request, 'top-sellers.html')
