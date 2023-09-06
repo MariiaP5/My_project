@@ -33,7 +33,7 @@ urlpatterns = [
     path('lesson_4/',lesson),
     path('test1/',test1, name='test1'),
     path('test2/',test2, name='test2'),
-    path('post_adv/',post_adv, name='post_adv'),
+    path('post-adv/',post_adv, name='post_adv'),
 ]
 
 

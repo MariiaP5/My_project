@@ -5,7 +5,6 @@ from .models import Advertisement
 from django.core.exceptions import ValidationError 
 
 class AdvertisementForm(forms.Form):
-    # class="row mb-3 offset-sm-4"
     title       = forms.CharField(max_length=100, widget=forms.TextInput(
         {"class": "form-control-lg"}
     )) 
@@ -21,3 +20,8 @@ class AdvertisementForm(forms.Form):
     image       = forms.ImageField(widget=forms.FileInput(
         {"class": "form-control-lg"}
     ))
+
+
+
+
+
