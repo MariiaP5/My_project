@@ -16,7 +16,7 @@ Including another URLconf
 """
 # файл отвечает за ссылки
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings # подключил файл setting
 from django.conf.urls.static import static # функция для создания ссылок для картинок
 # импортирую представления
@@ -34,6 +34,7 @@ urlpatterns = [
     path('test1/',test1, name='test1'),
     path('test2/',test2, name='test2'),
     path('post-adv/',post_adv, name='post_adv'),
+    path("auth/", include('auth.urls')), 
 ]
 
 
