@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # указываю свои приложения
     'advertisements',
     'app_lesson_4',
+    'auth',
 ]
 
 MIDDLEWARE = [
