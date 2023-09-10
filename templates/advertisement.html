@@ -14,12 +14,12 @@
 <body>
   <ul class="nav nav-pills sticky-top bg-white nav-fill">
     <li class="nav-item">
-      <a class="nav-link" href="index.html">
+      <a class="nav-link" href="{% url 'home' %}">
         <span style="font-weight: bold;">Главная</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="top-sellers.html"><span style="font-weight: bold;">Топ продавцов</span>
+      <a class="nav-link" href="{% url 'top_sellers' %}"><span style="font-weight: bold;">Топ продавцов</span>
       </a>
     </li>
     <li class="nav-item">
@@ -27,6 +27,8 @@
         <span style="font-weight: bold;">Разместить объявление</span>
       </a>
     </li>
+     <!-- если пользователь не авторизован -->
+    {% if not user.is_authenticated %}
     <li class="nav-item">
       <a class="nav-link" href="{% url 'sign_in' %}">
         <span style="font-weight: bold;">Регистрация</span>
@@ -37,6 +39,7 @@
         <span style="font-weight: bold;">Войти</span>
       </a>
     </li>
+    {% else %}
     <li class="nav-item">
       <a class="nav-link" href="{% url 'profile' %}">
         <span style="font-weight: bold;">Профиль</span>
@@ -47,10 +50,11 @@
         <span style="font-weight: bold;">Выйти</span>
       </a>
     </li>
+    {% endif %}
   </ul>
   <div class="container" style="margin: 50px;">
     <div class="display-2">
-      <span class="badge bg-primary">Объявление пользователя "username"</span>
+      <span class="badge bg-primary">Объявление пользователя {{ user }}</span>
     </div>
   </div>
   <div class="col offset-2">
