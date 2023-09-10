@@ -62,3 +62,27 @@ class Advertisement(models.Model): # наследую класс Model для с
 # connection.queries # увидеть все запросы на sql
 
 # exit()
+
+
+# py manage.py shell   
+# from add.models import Advertisement
+### WHERE
+### number
+# adv = Advertisement.objects.filter(price__lt = 100) # lt  <
+# adv = Advertisement.objects.filter(price__gt = 100) # gt  >
+# adv = Advertisement.objects.filter(price__lte = 100) # lte  <=
+# adv = Advertisement.objects.filter(price__gte = 100) # gte  >=
+
+### string
+# adv = Advertisement.objects.filter(title__contains = 'мол') # ищет данную строку в названиях чувствителен к регистру ("мол" in title)
+# ##работает только для английского языка
+# adv = Advertisement.objects.filter(title__icontains = 'мол') # ищет данную строку в названиях не чувствителен к регистру ("мол".lower() in title.lower())
+
+
+# adv = Advertisement.objects.filter(title__startswith = 'Мол') # ищет данную строку в начале названия
+# adv = Advertisement.objects.filter(title__endswith = 'ко') # ищет данную строку в конце названия
+# adv = Advertisement.objects.filter(title__istartswith = 'Мол') # ищет данную строку в начале названия
+# adv = Advertisement.objects.filter(title__iendswith = 'ко') # ищет данную строку в конце названия
+
+# from django.db import connection
+# connection.queries

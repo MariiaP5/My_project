@@ -1,8 +1,5 @@
+<!DOCTYPE html>
 {% extends 'base.html' %}
-
-
-{% block title %} Разместить объявление {% endblock %}
-
 {% block content %}
 <ul class="nav nav-pills sticky-top bg-white nav-fill">
   <li class="nav-item">
@@ -15,11 +12,11 @@
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="{% url 'post_adv' %}">
+    <a class="nav-link" href="{% url 'post_adv' %}">
       <span style="font-weight: bold;">Разместить объявление</span>
     </a>
   </li>
-   <!-- если пользователь не авторизован -->
+  <!-- если пользователь не авторизован -->
   {% if not user.is_authenticated %}
   <li class="nav-item">
     <a class="nav-link" href="{% url 'sign_in' %}">
@@ -33,7 +30,7 @@
   </li>
   {% else %}
   <li class="nav-item">
-    <a class="nav-link" href="{% url 'profile' %}">
+    <a class="nav-link active" aria-current="page" href="{% url 'profile' %}">
       <span style="font-weight: bold;">Профиль</span>
     </a>
   </li>

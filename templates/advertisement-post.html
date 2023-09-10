@@ -1,51 +1,52 @@
+
 {% extends 'base.html' %}
+<!-- подключил шаблон html для наследования -->
 
+{% block title %} Advertisement-post {% endblock %}
 
-{% block title %} Разместить объявление {% endblock %}
 
 {% block content %}
-
-
-  <ul class="nav nav-pills sticky-top bg-white nav-fill">
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'home' %}">
-        <span style="font-weight: bold;">Главная</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'top_sellers' %}"><span style="font-weight: bold;">Топ продавцов</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="{% url 'post_adv' %}">
-        <span style="font-weight: bold;">Разместить объявление</span>
-      </a>
-    </li>
-     <!-- если пользователь не авторизован -->
-    {% if not user.is_authenticated %}
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'sign_in' %}">
-        <span style="font-weight: bold;">Регистрация</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'login' %}">
-        <span style="font-weight: bold;">Войти</span>
-      </a>
-    </li>
-    {% else %}
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'profile' %}">
-        <span style="font-weight: bold;">Профиль</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'logout' %}">
-        <span style="font-weight: bold;">Выйти</span>
-      </a>
-    </li>
-    {% endif %}
-  </ul>
+<ul class="nav nav-pills sticky-top bg-white nav-fill">
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'home' %}">
+      <span style="font-weight: bold;">Главная</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'top_sellers' %}"><span style="font-weight: bold;">Топ продавцов</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="{% url 'post_adv' %}">
+      <span style="font-weight: bold;">Разместить объявление</span>
+    </a>
+  </li>
+  <!-- если пользователь не авторизован -->
+  {% if not user.is_authenticated %}
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'sign_in' %}">
+      <span style="font-weight: bold;">Регистрация</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'login' %}">
+      <span style="font-weight: bold;">Войти</span>
+    </a>
+  </li>
+  {% else %}
+  <li class="nav-item">
+    <a class="nav-link " aria-current="page" href="{% url 'profile' %}">
+      <span style="font-weight: bold;">Профиль</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'logout' %}">
+      <span style="font-weight: bold;">Выйти</span>
+    </a>
+  </li>
+  {% endif %}
+</ul>
+  
   <div class="row">
     <div class="col" style="margin: 50px;">
       <div class="display-2">
@@ -53,20 +54,22 @@
       </div>
     </div>
   </div>
+  <div class="container">
+
 
     <!-- form - тег для создания формы -->
     <!-- enctype="multipart/form-data"  -позволяет отправлять медиа данные  -->
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" >
       <!-- автоматическая отправка токена -->
       {% csrf_token %}
       <div class="row mb-3 offset-sm-4">
-        <div class="col-6">
-          {{form.as_p}}
-          <!-- as_p as_table as_ul -->
-
+          <div class="col-6">
+            {{form.as_p}}
+            <!-- as_p as_table as_ul -->
           </div>
-        </div>
-      
+
+      </div>  
+
 
       <div class="row mb-3 offset-sm-5">
         <div class="col">
@@ -74,6 +77,8 @@
         </div>
       </div>
     </form>
+
     <!-- конец формы  -->
+    
   </div>
-{% endblock %}
+  {% endblock %}

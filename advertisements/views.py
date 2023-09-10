@@ -17,9 +17,13 @@ def index(request):
 # <!-- {% if else while for %}  - это блоки с функционалом -->
 
 # render - функция для создания ответа с помощью html
-def home(request):
-    data = Advertisement.objects.all() # беру все записи из БД
-    context = {'advertisements' : data} # словарь
+def home(request: WSGIRequest):
+    title = request.GET.get('query')
+    if title: # если пользователь что-то ищет
+        data = Advertisement.objects.filter(title__icontains = title) # SELECT * FROM Advertisement WHERE title = title
+    else: # если ничего не ищет(просто все обьявления)
+        data = Advertisement.objects.all() # беру все записи из БД
+    context = {'advertisements' : data, 'title': title} # словарь
     return render(request, 'index.html', context)
 
 def post_adv(request: WSGIRequest):
@@ -55,6 +59,13 @@ def post_adv(request: WSGIRequest):
 def top_sellers(request):
     return render(request, 'top-sellers.html')
 
+def post_adv_detail(request: WSGIRequest, pk):
+    # post_adv/<int:pk>/
+    # http://127.0.0.1:8000/post_adv/1/
+    # pk = 1
+    adv = Advertisement.objects.get(id = pk) # ищу запись по id
+    context = {"adv" : adv}
+    return render(request, 'advertisement.html', context)
 
 # функции будут отдавать html
 def test1(request):
