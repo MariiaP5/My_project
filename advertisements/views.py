@@ -5,11 +5,14 @@ from django.http import HttpResponse # класс для ответа в фор�
 from .forms import AdvertisementForm
 from .models import Advertisement
 from django.core.handlers.wsgi import WSGIRequest
-
+from django.contrib.auth import get_user_model # получаем модель пользователей
+from django.db.models import Count # для подсчета 
 # функция или классы, которые будут принимать запрос и отдавать ответ
 
 def index(request):
     return HttpResponse("Привет")
+
+User = get_user_model()
 
 # функции-представления
 # <!-- {{}}  - это переменная -->
@@ -57,7 +60,12 @@ def post_adv(request: WSGIRequest):
 
 
 def top_sellers(request):
-    return render(request, 'top-sellers.html')
+    users = User.objects.annotate(
+        adv_count = Count('advertisement')# записываю в  adv_count колисчество обьявлений у каждого пользователя
+    ).order_by('-adv_count') # сортировка от наибольшего к наименьшему
+
+    context = {"users" : users}
+    return render(request, 'top-sellers.html', context)
 
 def post_adv_detail(request: WSGIRequest, pk):
     # post_adv/<int:pk>/

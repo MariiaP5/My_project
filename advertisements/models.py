@@ -4,6 +4,8 @@ from django.utils import timezone # для времени
 from django.utils.html import format_html # для создания строки html 
 
 from django.contrib.auth import get_user_model # метод для получения класса модели пользователей
+from django.urls import reverse # получение ссылки полной по название в urls
+
 
 # название, цена, описание, дата создания/обновления, торг
 
@@ -22,6 +24,10 @@ class Advertisement(models.Model): # наследую класс Model для с
     def __str__(self) -> str:
         return f"Advertisement(id={self.id}, title={self.title}, price={self.price})"
 
+    def get_absolute_url(self):
+        # post_adv/<int:pk>/
+        # post_adv/self.pk/
+        return reverse("post_adv_detail", kwargs={"pk": self.pk})# pk тоже самое что и id в модели
 
     # область для работы с таблицами
     class Meta:
